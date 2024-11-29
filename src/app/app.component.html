@@ -14,10 +14,13 @@
     </div>
   </div>
   <div class="absolute bottom-0 h-auto left-0 px-4 py-1 w-full surface-500 border-1 surface-border text-xs">
-    This website is a training website for tasks that will come to the entrance test of MedAt.
-    All tasks are generated - so they just example questions. There is no guarantee, that the tests
-    are generated 100% correctly - althought the solutions will always explain the background of the
-    creation process.
+    <span class="flex w-full text-orange-400 justify-content-center">CAVE! This page stores zero data - All settings, results and statistics are los after reloading!</span>
+    <br>This website is a training website for tasks that will come to the entrance test of MedAt.
+    All tasks are generated - so they are just example questions. There is no guarantee, that the tests
+    are generated 100% correctly. Inside the information Tab you will find the information about the generation-process
+    as well as the sources used for programming the logic.
+    If you are able to read code you can also look inside the repository by yourself: <a href="https://github.com/HansSeidel/medat-trainer">MedAt-Trainer - GitHub</a>
+    The generation of the tasks will be stored inside "src/app/services/*".
   </div>
 } @else {
   <app-landing-page></app-landing-page>

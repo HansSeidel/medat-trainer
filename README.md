@@ -25,3 +25,23 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Dev Information
+
+This page has a pseudo authentication. It is not meant to be used by everyone.
+But there is no sensible data, so the login-page can be cracked quit easy.
+Also it's possible to clone the repo and remove the pseudo-auth.
+
+##  Content
+This page contains practice opportunities for the MedAt. 
+The MedAt is an entrance test for medical universities in Austria.
+
+## Releases:
+
+
+### Temporary Todos:
+- Info text on front page.
+- Settings.
+- Buttons on Landing page for Test-Sim and KFF.
+- Disabling not implemented yet.
+- Alt text with information about the settings tab.
