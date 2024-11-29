@@ -7,11 +7,13 @@ import {FormsModule} from "@angular/forms";
 import {LandingPageComponent} from "./page/landing-page/landing-page.component";
 import { FeatureBranchService } from './feature-branch-service/feature-branch.service';
 import {WipComponent} from "./dev/wip/wip.component";
+import {MenuItem} from "primeng/api";
+import {TabMenuModule} from "primeng/tabmenu";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, LandingPageComponent, WipComponent],
+  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, LandingPageComponent, WipComponent, TabMenuModule],
   providers: [FeatureBranchService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -23,10 +25,21 @@ export class AppComponent {
   isLoggedIn: boolean;
   loginStatus: string;
 
+  items: MenuItem[];
+  activeItem: MenuItem;
+
   constructor(_featureBranchService: FeatureBranchService) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();
+
+
+    this.items = [
+      { label: 'Tasks', icon: 'pi pi-calculator'},
+      { label: 'Settings', icon: 'pi pi-cog' },
+      { label: 'Information', icon: 'pi pi-info' }
+    ];
+    this.activeItem = this.items[0];
   }
 
 

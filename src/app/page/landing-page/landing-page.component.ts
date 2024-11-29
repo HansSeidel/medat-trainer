@@ -4,6 +4,7 @@ import {DividerModule} from "primeng/divider";
 import {TooltipModule} from "primeng/tooltip";
 import {TabMenuModule} from "primeng/tabmenu";
 import {MenuItem} from "primeng/api";
+import {WipComponent} from "../../dev/wip/wip.component";
 
 @Component({
   selector: 'app-landing-page',
@@ -12,13 +13,15 @@ import {MenuItem} from "primeng/api";
     Button,
     DividerModule,
     TooltipModule,
-    TabMenuModule
+    TabMenuModule,
+    WipComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
   notImplementedYet: string = "This part is not implemented yet but might come soon";
+
 
   constructor() {
   }
