@@ -40,7 +40,6 @@ The MedAt is an entrance test for medical universities in Austria.
 
 
 ### Temporary Todos:
-- Info text on front page.
 - Settings.
 - Buttons on Landing page for Test-Sim and KFF.
 - Disabling not implemented yet.
