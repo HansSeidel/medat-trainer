@@ -21,11 +21,13 @@ export class AppComponent {
   password: string;
   isLoggedIn: boolean;
   loginStatus: string;
+  zeroLogInTries: boolean;
 
   constructor(_featureBranchService: FeatureBranchService) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();
+    this.zeroLogInTries = true;
   }
 
 
@@ -35,10 +37,11 @@ export class AppComponent {
    * So feel free to lock around when you cracked it ;)
    */
   dummyLogin() {
+    this.zeroLogInTries = false;
     this.isLoggedIn = bcrypt.compareSync(this.password, this.realPassword);
   }
 
   isInvalid() {
-    return this.isLoggedIn != undefined && !this.isLoggedIn;
+    return !this.zeroLogInTries && !this.isLoggedIn;
   }
 }
