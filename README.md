@@ -40,7 +40,12 @@ The MedAt is an entrance test for medical universities in Austria.
 
 
 ### Temporary Todos:
-- Adding Settings and information Tab
+- Implement Settings and Information bases
+- Update ReadMe 
+- Update Version and Tag for first KFF
+- Merge to master
+
+
 - Implementing first KFF 
   - Write Service for first KFF
   - Write Component for first KFF

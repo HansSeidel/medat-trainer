@@ -9,6 +9,8 @@ import { FeatureBranchService } from './feature-branch-service/feature-branch.se
 import {WipComponent} from "./dev/wip/wip.component";
 import {MenuItem} from "primeng/api";
 import {TabMenuModule} from "primeng/tabmenu";
+import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -28,18 +30,20 @@ export class AppComponent {
   items: MenuItem[];
   activeItem: MenuItem;
 
-  constructor(_featureBranchService: FeatureBranchService) {
+  constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, _router: Router) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();
-
-
+    this._auth.setAuthenticated(this.isLoggedIn);
     this.items = [
-      { label: 'Tasks', icon: 'pi pi-calculator'},
-      { label: 'Settings', icon: 'pi pi-cog' },
-      { label: 'Information', icon: 'pi pi-info' }
+      { label: 'Tasks', icon: 'pi pi-calculator', routerLink: './tasks'},
+      { label: 'Settings', icon: 'pi pi-cog', routerLink: './settings'},
+      { label: 'Information', icon: 'pi pi-info', routerLink: './information'}
     ];
     this.activeItem = this.items[0];
+    if(this.isLoggedIn){
+      _router.navigate(['./tasks']);
+    }
   }
 
 
@@ -50,6 +54,7 @@ export class AppComponent {
    */
   dummyLogin() {
     this.isLoggedIn = bcrypt.compareSync(this.password, this.realPassword);
+    this._auth.setAuthenticated(this.isLoggedIn);
   }
 
   isInvalid() {
