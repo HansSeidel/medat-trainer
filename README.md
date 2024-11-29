@@ -40,7 +40,41 @@ The MedAt is an entrance test for medical universities in Austria.
 
 
 ### Temporary Todos:
-- Settings.
-- Buttons on Landing page for Test-Sim and KFF.
-- Disabling not implemented yet.
-- Alt text with information about the settings tab.
+- Adding Settings and information Tab
+- Implementing first KFF 
+  - Write Service for first KFF
+  - Write Component for first KFF
+  - Implement Settings for first KFF
+  - Update ReadMe for First KFF
+  - Update Information for first KFF
+  - Update Version and Tag for first KFF
+  - Merge to master
+
+- Implementing second KFF
+  - Write Service for second KFF
+  - Write Component for second KFF
+  - Implement Settings for second KFF
+  - Update ReadMe for second KFF
+  - Update Information for second KFF
+  - Update Version and Tag for second KFF
+  - Merge to master
+
+- Implementing third KFF
+  - Write Service for third KFF
+  - Write Component for third KFF
+  - Implement Settings for third KFF
+  - Update ReadMe for third KFF
+  - Update Information for third KFF
+  - Update Version and Tag for third KFF
+  - Merge to master
+
+- Implementing fourth KFF
+  - Write Service for fourth KFF
+  - Write Component for fourth KFF
+  - Implement Settings for fourth KFF
+  - Update ReadMe for fourth KFF
+  - Update Information for fourth KFF
+  - Update Version and Tag for fourth KFF
+  - Merge to master
+
+- Implement Test-Simulation (And write more details todo here)
