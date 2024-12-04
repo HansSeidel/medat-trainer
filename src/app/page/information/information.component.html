@@ -1,1 +1,44 @@
-<p>information works!</p>
+<br>
+<span class="flex w-full text-orange-400 justify-content-center mb-2">CAVE! This page stores zero data - All settings, results and statistics are lost after reloading!</span>
+<div class="card flex justify-content-center mx-4">
+  <p-accordion [multiple]="true" [activeIndex]="0">
+    <p-accordionTab header="Welcome">
+      <p>
+        When I program tasks, I tend to improve my understanding of them. And I like programming, so you've got the possibility to use this side.
+        Please write any Bugs (I hope there are none), annoying default Settings or other ideas into the group chat in WhatsApp.
+        Wishes about implementations of other tasks might be hard to accomplish. Most parts in KFF are quite easy to develop but BMS for example is pain in the ass.
+        The buttons with the <span class="pi pi-hammer"></span>-symbol are those tasks I consider to develop next.
+        <br>
+        Once again about the settings. The settings will always jump back to the default values when the page is reloaded.
+        I might (big might) implement a local storage but if not (most likely) we can discuss the favorite default settings in the group.
+      </p>
+    </p-accordionTab>
+    <p-accordionTab header="How are the tasks generated">
+      <p>
+        For the development of the algorithms to generate the tasks, I've used books which I've bought for learning.
+        With every implemented task, I will start a new chapter below, which will contain references to the book(s) and an explanation of the algorithm.
+        I might also implement a setting for explanation generation. This will add a component to the tasks, which shows the solution path (or tricks).
+      </p>
+    </p-accordionTab>
+    <p-accordionTab header="KFF - Zahlenfolge" [disabled]="true">
+      <p>
+        Not implemented
+      </p>
+    </p-accordionTab>
+    <p-accordionTab header="KFF - Merkfähigkeit" [disabled]="true">
+      <p>
+        Not implemented
+      </p>
+    </p-accordionTab>
+    <p-accordionTab header="KFF - Wortflüssigkeit" [disabled]="true">
+      <p>
+        Not implemented
+      </p>
+    </p-accordionTab>
+    <p-accordionTab header="KFF - Implikationen" [disabled]="true">
+      <p>
+        Not implemented
+      </p>
+    </p-accordionTab>
+  </p-accordion>
+</div>
