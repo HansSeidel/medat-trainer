@@ -11,11 +11,12 @@ import {TabMenuModule} from "primeng/tabmenu";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {version as appVersion} from '../../package.json';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, WipComponent, TabMenuModule],
+  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, WipComponent, TabMenuModule, NgOptimizedImage],
   providers: [FeatureBranchService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
