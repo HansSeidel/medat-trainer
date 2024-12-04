@@ -4,7 +4,6 @@ import {InputTextModule} from "primeng/inputtext";
 import {Button} from "primeng/button";
 import * as bcrypt from "bcryptjs";
 import {FormsModule} from "@angular/forms";
-import {LandingPageComponent} from "./page/landing-page/landing-page.component";
 import { FeatureBranchService } from './feature-branch-service/feature-branch.service';
 import {WipComponent} from "./dev/wip/wip.component";
 import {MenuItem} from "primeng/api";
@@ -15,7 +14,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, LandingPageComponent, WipComponent, TabMenuModule],
+  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, WipComponent, TabMenuModule],
   providers: [FeatureBranchService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
