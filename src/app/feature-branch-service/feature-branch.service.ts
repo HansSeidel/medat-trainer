@@ -8,6 +8,6 @@ export class FeatureBranchService {
   constructor() { }
 
   public getIsLoggedInByDefault() :boolean {
-      return true;
+      return false;
   }
 }

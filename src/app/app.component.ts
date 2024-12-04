@@ -10,6 +10,7 @@ import {MenuItem} from "primeng/api";
 import {TabMenuModule} from "primeng/tabmenu";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
+import {version as appVersion} from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,8 @@ export class AppComponent {
   items: MenuItem[];
   activeItem: MenuItem;
 
+  public appVersion: string;
+
   constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, _router: Router) {
     this.password = '';
     this.loginStatus = '';
@@ -43,6 +46,7 @@ export class AppComponent {
     if(this.isLoggedIn){
       _router.navigate(['./tasks']);
     }
+    this.appVersion = appVersion;
   }
 
 

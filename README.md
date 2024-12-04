@@ -30,23 +30,33 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 This page has a pseudo authentication. It is not meant to be used by everyone.
 But there is no sensible data, so the login-page can be cracked quit easy.
-Also it's possible to clone the repo and remove the pseudo-auth.
+Also, it's possible to clone the repo and remove the pseudo-auth.
 
 ##  Content
 This page contains practice opportunities for the MedAt. 
 The MedAt is an entrance test for medical universities in Austria.
 
 ## Releases:
+### 0.0.1 - Initial Commit
+The project setup has been created and some components have been added.
+The build parameters has been adjusted so it gets automatically deployed.
+A pseudo-login has been created and some descriptions have been added.
 
+### 0.0.2 - Base
+The project main pages have been implemented.
+This includes the landing page with the tasks,
+the settings page with generic setting components,
+the information page with all additional information a user might be interested in.
 
 ### Temporary Todos:
-- Implement Settings and Information bases
-- Update ReadMe 
-- Update Version and Tag for first KFF
-- Merge to master
+- First Public Release (1.0.0)
+  - Merge to master
+  - Update Version and Tag for first KFF
+  - Remove the this Todo Section Todos
+  - Create Release Commit 
 
 
-- Implementing first KFF 
+- Implementing first KFF (1.1.0)
   - Write Service for first KFF
   - Write Component for first KFF
   - Implement Settings for first KFF
@@ -55,7 +65,7 @@ The MedAt is an entrance test for medical universities in Austria.
   - Update Version and Tag for first KFF
   - Merge to master
 
-- Implementing second KFF
+- Implementing second KFF (1.2.0)
   - Write Service for second KFF
   - Write Component for second KFF
   - Implement Settings for second KFF
@@ -64,7 +74,7 @@ The MedAt is an entrance test for medical universities in Austria.
   - Update Version and Tag for second KFF
   - Merge to master
 
-- Implementing third KFF
+- Implementing third KFF (1.3.0)
   - Write Service for third KFF
   - Write Component for third KFF
   - Implement Settings for third KFF
@@ -73,7 +83,7 @@ The MedAt is an entrance test for medical universities in Austria.
   - Update Version and Tag for third KFF
   - Merge to master
 
-- Implementing fourth KFF
+- Implementing fourth KFF (1.4.0)
   - Write Service for fourth KFF
   - Write Component for fourth KFF
   - Implement Settings for fourth KFF
@@ -82,4 +92,4 @@ The MedAt is an entrance test for medical universities in Austria.
   - Update Version and Tag for fourth KFF
   - Merge to master
 
-- Implement Test-Simulation (And write more details todo here)
+- Implement Test-Simulation (And write more details todo here) (2.0.0)
