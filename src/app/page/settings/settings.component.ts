@@ -16,15 +16,11 @@ import {NgTemplateOutlet} from "@angular/common";
     TooltipModule,
     NgTemplateOutlet
   ],
-  providers: [SettingsService],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent {
 
-  //public normalTaskSettingShowTimeAfterAverage: boolean;
-
   constructor(public _settings: SettingsService) {
-    //this.normalTaskSettingShowTimeAfterAverage = _settings.normalTaskSettingShowTimeAfterAverage;
   }
 }
