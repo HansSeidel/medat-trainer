@@ -42,19 +42,13 @@ The project setup has been created and some components have been added.
 The build parameters has been adjusted so it gets automatically deployed.
 A pseudo-login has been created and some descriptions have been added.
 
-### 0.0.2 - Base
+### 1.0.0 - Base
 The project main pages have been implemented.
 This includes the landing page with the tasks,
 the settings page with generic setting components,
 the information page with all additional information a user might be interested in.
 
 ### Temporary Todos:
-- First Public Release (1.0.0)
-  - Merge to master
-  - Update Version and Tag for first KFF
-  - Remove the this Todo Section Todos
-  - Create Release Commit 
-
 
 - Implementing first KFF (1.1.0)
   - Write Service for first KFF
