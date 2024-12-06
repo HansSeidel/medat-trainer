@@ -36,7 +36,7 @@ export class AppComponent {
   public appVersion: string;
   public releaseNotes: string;
 
-  constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, _router: Router) {
+  constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, public _router: Router) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();
@@ -49,7 +49,7 @@ export class AppComponent {
     ];
     this.activeItem = this.items[0];
     if(this.isLoggedIn){
-      _router.navigate(['./tasks']);
+      this._router.navigate(['./tasks']);
     }
     this.appVersion = appVersion;
     this.releaseNotes = releaseNotes;
@@ -65,6 +65,9 @@ export class AppComponent {
     this.zeroLogInTries = false;
     this.isLoggedIn = bcrypt.compareSync(this.password, this.realPassword);
     this._auth.setAuthenticated(this.isLoggedIn);
+    if(this.isLoggedIn){
+      this._router.navigate(['./tasks']);
+    }
   }
 
   isInvalid() {
