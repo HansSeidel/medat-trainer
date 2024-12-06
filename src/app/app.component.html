@@ -1,7 +1,7 @@
-<h1 class="ml-8 mt-5">MedAt Trainer</h1>
-<h3 class="ml-8 mt-5">This website is currently in production <span class="pi pi-hammer"></span></h3>
-<br>
 @if (!isLoggedIn) {
+  <h1 class="ml-6 mt-5">MedAt Trainer <img ngSrc="assets/SiteLogo.PNG" alt="Logo" height="80" width="80"></h1>
+  <app-wip></app-wip>
+  <br>
   <div class="flex justify-content-center align-items-center h-19rem">
     <div>
       <p-floatLabel>
@@ -14,14 +14,16 @@
     </div>
   </div>
   <div class="absolute bottom-0 h-auto left-0 px-4 py-1 w-full surface-500 border-1 surface-border text-xs">
-    <span class="flex w-full text-orange-400 justify-content-center">CAVE! This page stores zero data - All settings, results and statistics are los after reloading!</span>
+    <span class="flex w-full text-orange-400 justify-content-center">CAVE! This page stores zero data - All settings, results and statistics are lost after reloading!</span>
     <br>This website is a training website for tasks that will come to the entrance test of MedAt.
     All tasks are generated - so they are just example questions. There is no guarantee, that the tests
     are generated 100% correctly. Inside the information Tab you will find the information about the generation-process
     as well as the sources used for programming the logic.
     If you are able to read code you can also look inside the repository by yourself: <a href="https://github.com/HansSeidel/medat-trainer">MedAt-Trainer - GitHub</a>
-    The generation of the tasks will be stored inside "src/app/services/*".
+    The generation of the tasks will be stored inside "src/app/algorithms/*".<br>
+    App-Version: {{this.appVersion}} <span class="pi pi-info-circle ml-1" style="font-size: 0.7rem" [pTooltip]="this.releaseNotes"></span>
   </div>
 } @else {
-  <app-landing-page></app-landing-page>
+  <p-tabMenu [model]="items" [activeItem]="activeItem" />
+  <router-outlet></router-outlet>
 }

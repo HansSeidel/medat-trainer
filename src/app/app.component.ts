@@ -4,13 +4,20 @@ import {InputTextModule} from "primeng/inputtext";
 import {Button} from "primeng/button";
 import * as bcrypt from "bcryptjs";
 import {FormsModule} from "@angular/forms";
-import {LandingPageComponent} from "./page/landing-page/landing-page.component";
 import { FeatureBranchService } from './feature-branch-service/feature-branch.service';
+import {WipComponent} from "./dev/wip/wip.component";
+import {MenuItem} from "primeng/api";
+import {TabMenuModule} from "primeng/tabmenu";
+import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
+import {version as appVersion} from '../../package.json';
+import {releaseNotes as releaseNotes} from '../../package.json';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, LandingPageComponent],
+  imports: [FloatLabelModule, InputTextModule, Button, FormsModule, WipComponent, TabMenuModule, NgOptimizedImage],
   providers: [FeatureBranchService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -23,11 +30,29 @@ export class AppComponent {
   loginStatus: string;
   zeroLogInTries: boolean;
 
-  constructor(_featureBranchService: FeatureBranchService) {
+  items: MenuItem[];
+  activeItem: MenuItem;
+
+  public appVersion: string;
+  public releaseNotes: string;
+
+  constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, _router: Router) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();
     this.zeroLogInTries = true;
+    this._auth.setAuthenticated(this.isLoggedIn);
+    this.items = [
+      { label: 'Tasks', icon: 'pi pi-calculator', routerLink: './tasks'},
+      { label: 'Settings', icon: 'pi pi-cog', routerLink: './settings'},
+      { label: 'Information', icon: 'pi pi-info', routerLink: './information'}
+    ];
+    this.activeItem = this.items[0];
+    if(this.isLoggedIn){
+      _router.navigate(['./tasks']);
+    }
+    this.appVersion = appVersion;
+    this.releaseNotes = releaseNotes;
   }
 
 
@@ -39,6 +64,7 @@ export class AppComponent {
   dummyLogin() {
     this.zeroLogInTries = false;
     this.isLoggedIn = bcrypt.compareSync(this.password, this.realPassword);
+    this._auth.setAuthenticated(this.isLoggedIn);
   }
 
   isInvalid() {

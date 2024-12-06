@@ -1,0 +1,31 @@
+<br>
+<span class="flex w-full text-orange-400 justify-content-center mb-2">CAVE! This page stores zero data - All settings, results and statistics are lost after reloading!</span>
+<div class="card flex justify-content-center mx-4">
+  <p-accordion class="w-full">
+    <p-accordionTab header="Test Simulation Settings" [disabled]="true">
+    </p-accordionTab>
+    <p-accordionTab header="Single Tasks General Settings">
+      <div class="card flex">
+        <div class="flex-column mb-1">
+          <ng-container *ngTemplateOutlet="checkbox;context:{ctx:_settings.normalTaskSettingShowTimeAfterAverage}">
+          </ng-container>
+          <ng-container *ngTemplateOutlet="checkbox;context:{ctx:_settings.normalTaskSettingShowSolutionPathFooter}">
+          </ng-container>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+</div>
+
+
+<ng-template #checkbox let-ctx="ctx">
+  <div class="field-checkbox">
+    <p-checkbox
+      [(ngModel)]="ctx.model"
+      [label]="ctx.label"
+      [binary]="true"/>
+    @if (ctx.description) {
+      <span class="pi pi-info-circle ml-2" [pTooltip]="ctx.description"></span>
+    }
+  </div>
+</ng-template>

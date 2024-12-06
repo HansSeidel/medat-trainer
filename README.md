@@ -37,10 +37,59 @@ This page contains practice opportunities for the MedAt.
 The MedAt is an entrance test for medical universities in Austria.
 
 ## Releases:
+### 0.0.1 - Initial Commit
+The project setup has been created and some components have been added.
+The build parameters has been adjusted so it gets automatically deployed.
+A pseudo-login has been created and some descriptions have been added.
 
+### 0.0.2 - Base
+The project main pages have been implemented.
+This includes the landing page with the tasks,
+the settings page with generic setting components,
+the information page with all additional information a user might be interested in.
 
 ### Temporary Todos:
-- Settings.
-- Buttons on Landing page for Test-Sim and KFF.
-- Disabling not implemented yet.
-- Alt text with information about the settings tab.
+- First Public Release (1.0.0)
+  - Merge to master
+  - Update Version and Tag for first KFF
+  - Remove the this Todo Section Todos
+  - Create Release Commit 
+
+
+- Implementing first KFF (1.1.0)
+  - Write Service for first KFF
+  - Write Component for first KFF
+  - Implement Settings for first KFF
+  - Update ReadMe for First KFF
+  - Update Information for first KFF
+  - Update Version and Tag for first KFF
+  - Merge to master
+
+- Implementing second KFF (1.2.0)
+  - Write Service for second KFF
+  - Write Component for second KFF
+  - Implement Settings for second KFF
+  - Update ReadMe for second KFF
+  - Update Information for second KFF
+  - Update Version and Tag for second KFF
+  - Merge to master
+
+- Implementing third KFF (1.3.0)
+  - Write Service for third KFF
+  - Write Component for third KFF
+  - Implement Settings for third KFF
+  - Update ReadMe for third KFF
+  - Update Information for third KFF
+  - Update Version and Tag for third KFF
+  - Merge to master
+
+- Implementing fourth KFF (1.4.0)
+  - Write Service for fourth KFF
+  - Write Component for fourth KFF
+  - Implement Settings for fourth KFF
+  - Update ReadMe for fourth KFF
+  - Update Information for fourth KFF
+  - Update Version and Tag for fourth KFF
+  - Merge to master
+
+- Implement Test-Simulation (And write more details todo here) (2.0.0)
