@@ -11,6 +11,7 @@ import {TabMenuModule} from "primeng/tabmenu";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {version as appVersion} from '../../package.json';
+import {releaseNotes as releaseNotes} from '../../package.json';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -32,6 +33,7 @@ export class AppComponent {
   activeItem: MenuItem;
 
   public appVersion: string;
+  public releaseNotes: string;
 
   constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, _router: Router) {
     this.password = '';
@@ -48,6 +50,7 @@ export class AppComponent {
       _router.navigate(['./tasks']);
     }
     this.appVersion = appVersion;
+    this.releaseNotes = releaseNotes;
   }
 
 
