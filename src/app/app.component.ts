@@ -59,7 +59,7 @@ export class AppComponent {
   /**
    * I know... I know -
    * But see it that way - I want to have a dummy check so not EVERYONE without a password can enter.
-   * So feel free to lock around when you cracked it ;)
+   * So feel free to look around when you cracked it ;)
    */
   dummyLogin() {
     this.zeroLogInTries = false;
