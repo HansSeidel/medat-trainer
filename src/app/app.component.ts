@@ -36,7 +36,9 @@ export class AppComponent {
   public appVersion: string;
   public releaseNotes: string;
 
-  constructor(_featureBranchService: FeatureBranchService, public _auth: AuthService, public _router: Router) {
+  constructor(_featureBranchService: FeatureBranchService,
+              public _auth: AuthService,
+              public _router: Router) {
     this.password = '';
     this.loginStatus = '';
     this.isLoggedIn = _featureBranchService.getIsLoggedInByDefault();

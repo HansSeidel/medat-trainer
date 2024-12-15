@@ -24,6 +24,8 @@
     App-Version: {{this.appVersion}} <span class="pi pi-info-circle ml-1" style="font-size: 0.7rem" [pTooltip]="this.releaseNotes"></span>
   </div>
 } @else {
-  <p-tabMenu [model]="items" [activeItem]="activeItem" />
+  @if (!this._router.url.startsWith('/active')) {
+    <p-tabMenu [model]="items" [activeItem]="activeItem" />
+  }
   <router-outlet></router-outlet>
 }

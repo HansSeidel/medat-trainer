@@ -3,13 +3,20 @@ import {LandingPageComponent} from "./page/landing-page/landing-page.component";
 import {SettingsComponent} from "./page/settings/settings.component";
 import {InformationComponent} from "./page/information/information.component";
 import {AuthService} from "./auth.service";
+import {ZahlenFolgenComponent} from "./page/tasks/zahlen-folgen/zahlen-folgen.component";
 
 export const routes: Routes = [
   {
     path: 'tasks',
     component: LandingPageComponent,
     title: 'Aufgaben',
-    canActivate: [AuthService]
+    canActivate: [AuthService],
+  },
+  {
+    path: 'active/zf',
+    component: ZahlenFolgenComponent,
+    title: 'ZahlenFolgen',
+    canActivate: [AuthService],
   },
   {
     path: 'information',

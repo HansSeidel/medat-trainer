@@ -5,6 +5,7 @@ import {TooltipModule} from "primeng/tooltip";
 import {TabMenuModule} from "primeng/tabmenu";
 import {MenuItem} from "primeng/api";
 import {WipComponent} from "../../dev/wip/wip.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-landing-page',
@@ -23,6 +24,10 @@ export class LandingPageComponent {
   notImplementedYet: string = "This part is not implemented yet but might come soon";
 
 
-  constructor() {
+  constructor(public _router:Router) {
+  }
+
+  startZahlenfolge() {
+    this._router.navigate(['./active/zf']);
   }
 }
