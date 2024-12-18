@@ -10,7 +10,7 @@ export type algZfType = {
 };
 
 export type algZfAnswerType = {
-  letter: string,
+  answerOptionLetter: string,
   answers: string | {
     eighthNumber: number,
     ninthNumber: number,

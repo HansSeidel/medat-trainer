@@ -24,3 +24,9 @@ export type Setting = {
   label: string,
   description?: string,
 };
+
+export enum EDifficulty {
+  EASY,
+  DEFAULT,
+  HARD
+}
