@@ -16,7 +16,7 @@ export class AlgZahlenfolgenService {
   //All variables below difficulty are based on Default difficulty
   private _difficulty: EDifficulty = EDifficulty.DEFAULT; //TODO for later
   private _amountOfTasks: number = 10;
-  private _nonCorrectAnswerIsCorrectProbability: number = 0.5;
+  private _nonCorrectAnswerIsCorrectProbability: number = 0.05;
   private _nonAnswerIsCorrect: boolean = false;
   private _nonAnswerString: string = "Keine Antwort ist richtig.";
 
@@ -55,7 +55,10 @@ export class AlgZahlenfolgenService {
    */
   private generateUsingSystem0(): algZfType {
     //init result
-    let result :algZfType = {answers: new Array<algZfAnswerType>(), givenNumbers: new Array<number>()};
+    let result :algZfType = {
+      answers: new Array<algZfAnswerType>(),
+      givenNumbers: new Array<number>(),
+      usedSystem: 1};
 
     //define a and b
     result.givenNumbers.push(this.getRandomNumberForTask(80)); //a
@@ -72,25 +75,17 @@ export class AlgZahlenfolgenService {
 
     //Construct result answers set
     //Add nonCorrectAnswer
-    result.answers.push({correct: this.nonAnswerIsCorrect, answers: this.nonAnswerString, answerOptionLetter:'E'});
+    result.answers.push(this.buildAnswer(this.nonAnswerIsCorrect,'E'));
     if(!this.nonAnswerIsCorrect){
-      result.answers.push({
-        correct:true,
-        answerOptionLetter: this.getRandomRemainingLetter(result.answers),
-        answers: {
-          eighthNumber: correctNumber1,
-          ninthNumber: correctNumber2
-        }
-      });
+      result.answers.push(this.buildAnswer(true,this.getRandomRemainingLetter(result.answers),
+        correctNumber1, correctNumber2));
     }
     //Fill the rest answer options by difficulty
     let numberList = [...result.givenNumbers,correctNumber1,correctNumber2];
     while (result.answers.length < this.maxGivenAnswers-2){
-      result.answers.push({
-        correct: false,
-        answers: this.getFakeAnswerValuesForCorrectValues(numberList,1,"+"),
-        answerOptionLetter: this.getRandomRemainingLetter(result.answers)
-      });
+      let fakeA = this.getFakeAnswerValuesForCorrectValues(numberList,1,"+");
+      result.answers.push(this.buildAnswer(false,this.getRandomRemainingLetter(result.answers),
+        fakeA.eighthNumber,fakeA.ninthNumber));
     }
     return result;  //Not implmented yet
   }
@@ -363,5 +358,24 @@ export class AlgZahlenfolgenService {
 
   get nonAnswerString(): string {
     return this._nonAnswerString;
+  }
+
+  /**
+   * Leave eightNumber and NinthNumber empty to use nonCorrectAnswer
+   * @param correct
+   * @param answerOptionLetter
+   * @param eightNumber
+   * @param ninthNumber
+   * @private
+   */
+  private buildAnswer(correct: boolean, answerOptionLetter:string, eightNumber?:number, ninthNumber?: number): algZfAnswerType{
+    return {
+      answers: eightNumber && ninthNumber?{
+        eighthNumber: eightNumber,
+        ninthNumber: ninthNumber
+      } : this.nonAnswerString ,
+      correct: correct,
+      answerOptionLetter: answerOptionLetter
+    };
   }
 }

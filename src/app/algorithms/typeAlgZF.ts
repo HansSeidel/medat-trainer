@@ -7,6 +7,7 @@
 export type algZfType = {
   givenNumbers: Array<number>,
   answers: Array<algZfAnswerType>,
+  usedSystem: number
 };
 
 export type algZfAnswerType = {
