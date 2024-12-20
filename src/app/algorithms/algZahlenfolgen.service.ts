@@ -35,9 +35,16 @@ export class AlgZahlenfolgenService {
 
 
     for(let i = 0; i < this.amountOfTasks; i++) {
-      result.push(this.addNewTask());
+      let newTask = this.addNewTask();
+      newTask.id = i;
+      result.push(newTask);
     }
-    console.log(result);
+    //Sort solutions:
+    result.forEach(task => {
+      task.answers.sort((a, b) => a.answerOptionLetter.localeCompare(b.answerOptionLetter));
+    })
+    console.log("Generated tasks after request in algZahlefolgenService." +
+      "\nBe careful, solutions included in object: ", result);
     return result;
   }
 
@@ -56,6 +63,7 @@ export class AlgZahlenfolgenService {
   private generateUsingSystem0(): algZfType {
     //init result
     let result :algZfType = {
+      id: -1,
       answers: new Array<algZfAnswerType>(),
       givenNumbers: new Array<number>(),
       usedSystem: 1};

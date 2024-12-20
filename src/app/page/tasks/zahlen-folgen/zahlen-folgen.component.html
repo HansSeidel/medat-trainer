@@ -1,1 +1,37 @@
-
+<div class="w-auto px-8 pt-3">
+  @if(this.zfTasks){
+    @for (task of this.zfTasks; track task.id) {
+      <div class="mt-4">
+        <p-card header="">
+          <ng-template pTemplate="header">
+            <div class="flex w-full m-3 ml-4">
+              <span class="mr-5">{{ task.id+1 }}.)  </span>
+              @for (num of task.givenNumbers; track num){
+                <span class="mr-2 font-bold">{{num}} |  </span>
+              }
+              <span class="mr-2 font-bold">? |  </span>
+              <span class="mr-2 font-bold">?</span>
+            </div>
+          </ng-template>
+          <div class="w-full m-3 ml-4">
+            @for (answer of task.answers; track answer.answerOptionLetter) {
+              <div class="p-2 mr-4"
+                   [class]="this.isChoosen(task.id,answer.answerOptionLetter)"
+                   (click)="this.chose(task.id,answer.answerOptionLetter)">
+                <span>{{ answer.answerOptionLetter }}: {{this.getAnswerFormatted(answer.answers)}}</span>
+              </div>
+              <br>
+            }
+          </div>
+        </p-card>
+      </div>
+    }
+  } @else {
+    <p-progressSpinner
+      styleClass="w-4rem p-fluid block mb-3"
+      strokeWidth="8"
+      [style]="{height: '70vh'}"
+      fill="var(--surface-ground)"
+      animationDuration=".5s" />
+  }
+</div>

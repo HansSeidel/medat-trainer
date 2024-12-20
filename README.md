@@ -49,7 +49,6 @@ the settings page with generic setting components,
 the information page with all additional information a user might be interested in.
 
 ### Temporary Todos:
-- Extract Code and reduce lines
 - Add known bugs with ZF SYS 1 Difficulty Ease -> Fakes only return 0;
 - Implement Component with first System
 
