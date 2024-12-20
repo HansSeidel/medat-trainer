@@ -5,6 +5,7 @@ import {SettingsService} from "../../services/settings.service";
 import {FormsModule} from "@angular/forms";
 import {TooltipModule} from "primeng/tooltip";
 import {NgTemplateOutlet} from "@angular/common";
+import {InputNumberModule} from "primeng/inputnumber";
 
 @Component({
   selector: 'app-settings',
@@ -14,7 +15,8 @@ import {NgTemplateOutlet} from "@angular/common";
     CheckboxModule,
     FormsModule,
     TooltipModule,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    InputNumberModule
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css'

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {algZfAnswerType, algZfType} from "./typeAlgZF";
-import {EDifficulty} from "../services/settings.service";
+import {EDifficulty, SettingsService} from "../services/settings.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +8,15 @@ import {EDifficulty} from "../services/settings.service";
 export class AlgZahlenfolgenService {
   //Constants for surrounding logic
   private _timeForAllTasksInSeconds: number = 15*60;
-  private readonly _maxGivenNumbers: number = 7; //Not meant to be overwritten at the moment
-  private readonly _maxGivenAnswers: number = 7; //Not meant to be overwritten at the moment
-  private readonly _maxGivenAnswersOptions: number = 2; //Not meant to be overwritten at the moment
+  private readonly _amountGivenNumbers: number = 7; //Not meant to be overwritten at the moment
+  private readonly _amountGivenSolutionNumbers: number = 2; //Not meant to be overwritten at the moment
+  private readonly _amountGivenAnswersOptions: number = 5; //Not meant to be overwritten at the moment
 
   // Constants defining the algorithm generation. Might be changeable in the future ####
   //All variables below difficulty are based on Default difficulty
   private _difficulty: EDifficulty = EDifficulty.DEFAULT; //TODO for later
   private _amountOfTasks: number = 10;
-  private _nonCorrectAnswerIsCorrectProbability: number = 0.05;
+  private readonly _nonCorrectAnswerIsCorrectProbability: number = 0.05; // DEFINED AS SETTING
   private _nonAnswerIsCorrect: boolean = false;
   private _nonAnswerString: string = "Keine Antwort ist richtig.";
 
@@ -24,9 +24,10 @@ export class AlgZahlenfolgenService {
   private _relationMarginBetweenNumbersMaximum: number = 3;
   //Defines the maximum Number allowed, either in the question or in the answer. EXCEPTIONS are allowes
   private _highestNumber: number = 999;
+  private _highestNumberOverwriteSystem1: number = 80;
 
 
-  constructor() {}
+  constructor(public _settings: SettingsService) {}
 
   getTasks(_amountOfTasks_? :number) : Array<algZfType> {
     this.amountOfTasks = _amountOfTasks_??this.amountOfTasks;
@@ -69,17 +70,17 @@ export class AlgZahlenfolgenService {
       usedSystem: 1};
 
     //define a and b
-    result.givenNumbers.push(this.getRandomNumberForTask(80)); //a
-    result.givenNumbers.push(this.getRandomNumberForTask(80)); //b
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1)); //a
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1)); //b
     //Define the rest of the given numbers
     let i = 0;
-    while (result.givenNumbers.length < this.maxGivenNumbers){
+    while (result.givenNumbers.length < this.amountGivenNumbers){
       result.givenNumbers.push(result.givenNumbers[i]+result.givenNumbers[i+1]);
       i++;
     }
     //Define the correct answer numbers
-    const correctNumber1:number = result.givenNumbers[this.maxGivenNumbers - 2] + result.givenNumbers[this.maxGivenNumbers - 1];
-    const correctNumber2:number = result.givenNumbers[this.maxGivenNumbers-1]+correctNumber1;
+    const correctNumber1:number = result.givenNumbers[this.amountGivenNumbers - 2] + result.givenNumbers[this.amountGivenNumbers - 1];
+    const correctNumber2:number = result.givenNumbers[this.amountGivenNumbers-1]+correctNumber1;
 
     //Construct result answers set
     //Add nonCorrectAnswer
@@ -90,12 +91,12 @@ export class AlgZahlenfolgenService {
     }
     //Fill the rest answer options by difficulty
     let numberList = [...result.givenNumbers,correctNumber1,correctNumber2];
-    while (result.answers.length < this.maxGivenAnswers-2){
+    while (result.answers.length < this.amountGivenAnswersOptions){
       let fakeA = this.getFakeAnswerValuesForCorrectValues(numberList,1,"+");
       result.answers.push(this.buildAnswer(false,this.getRandomRemainingLetter(result.answers),
         fakeA.eighthNumber,fakeA.ninthNumber));
     }
-    return result;  //Not implmented yet
+    return result;
   }
 
   private generateUsingSystem1(): algZfType {
@@ -336,16 +337,24 @@ export class AlgZahlenfolgenService {
     this._highestNumber = Math.abs(value);
   }
 
-  get maxGivenNumbers(): number {
-    return this._maxGivenNumbers;
+  get highestNumberOverwriteSystem1(): number {
+    return this._highestNumberOverwriteSystem1;
   }
 
-  get maxGivenAnswersOptions(): number {
-    return this._maxGivenAnswersOptions;
+  set highestNumberOverwriteSystem1(value: number) {
+    this._highestNumberOverwriteSystem1 = Math.abs(value);
   }
 
-  get maxGivenAnswers(): number {
-    return this._maxGivenAnswers;
+  get amountGivenNumbers(): number {
+    return this._amountGivenNumbers;
+  }
+
+  get amountGivenAnswersOptions(): number {
+    return this._amountGivenAnswersOptions;
+  }
+
+  get amountGivenSolutionNumbers(): number {
+    return this._amountGivenSolutionNumbers;
   }
 
   get nonAnswerIsCorrect(): boolean {
@@ -356,12 +365,21 @@ export class AlgZahlenfolgenService {
     this._nonAnswerIsCorrect = value;
   }
 
+  get nonCorrectAnswerIsCorrectProbability(): number {
+    if(typeof this._settings.kffZfTaskSettingProbabilityAnswerEIsCorrect.model !== "number"){
+      console.error("TYPE ERROR WITH: _settings.kffZfTaskSettingProbabilityAnswerEIsCorrect." +
+        "\nReturning 0.05 instead of setting.");
+      return 0.05;
+    }
+    return <number>this._settings.kffZfTaskSettingProbabilityAnswerEIsCorrect.model;
+  }
+
   /**
    * This method should be called before each task
    * @private
    */
   private refreshNonAnswerIsCorrectChance(){
-    this.nonAnswerIsCorrect = Math.random() <= this._nonCorrectAnswerIsCorrectProbability;
+    this.nonAnswerIsCorrect = Math.random() <= this.nonCorrectAnswerIsCorrectProbability;
   }
 
   get nonAnswerString(): string {
