@@ -50,7 +50,10 @@ the information page with all additional information a user might be interested 
 
 ### Temporary Todos:
 - Add known bugs with ZF SYS 1 Difficulty Ease -> Fakes only return 0;
+- Improvement for the Fake Answers could be to add a min value for the random number generation.
 - Implement Component with first System
+- Bug -> im Moment wird nur System 3 generiert.
+  - Ist wahrscheinlich kein Bug (Die Fallback logic gibt System 3 die größte Wahscheinlichkeit, da 4-23 nicht implementiert sind.)
 
 ### Next Release Todos:
 - Implementing first KFF (1.1.0)

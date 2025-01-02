@@ -10,8 +10,7 @@ import {MenuItem} from "primeng/api";
 import {TabMenuModule} from "primeng/tabmenu";
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
-import {version as appVersion} from '../../package.json';
-import {releaseNotes as releaseNotes} from '../../package.json';
+import packageInfo from '../../package.json';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -53,8 +52,8 @@ export class AppComponent {
     if(this.isLoggedIn){
       this._router.navigate(['./tasks']);
     }
-    this.appVersion = appVersion;
-    this.releaseNotes = releaseNotes;
+    this.appVersion = packageInfo.version;
+    this.releaseNotes = packageInfo.releaseNotes;
   }
 
 

@@ -24,91 +24,196 @@ export class AlgZahlenfolgenService {
   private _relationMarginBetweenNumbersMaximum: number = 3;
   //Defines the maximum Number allowed, either in the question or in the answer. EXCEPTIONS are allowes
   private _highestNumber: number = 999;
-  private _highestNumberOverwriteSystem1: number = 80;
+  private _highestNumberOverwriteSystem1_2_3: number = 80;
+  private _highestNumberOverwriteSystem4: number = 100;
 
 
   constructor(public _settings: SettingsService) {}
 
-  getTasks(_amountOfTasks_? :number) : Array<algZfType> {
+  /**
+   * Returns _amountOfTasks_ ZF tasks by a random chosen system.
+   * Default of _amountOfTasks is 10.
+   *
+   * @param _amountOfTasks_
+   * @param useSpecificSystem - This is just for testing purpose.
+   */
+  getTasks(_amountOfTasks_? :number, useSpecificSystem?: number) : Array<algZfType> {
     this.amountOfTasks = _amountOfTasks_??this.amountOfTasks;
 
     let result = [];
 
 
     for(let i = 0; i < this.amountOfTasks; i++) {
-      let newTask = this.addNewTask();
+      let newTask = this.addNewTask(useSpecificSystem?useSpecificSystem-1:undefined);
       newTask.id = i;
       result.push(newTask);
     }
     //Sort solutions:
     result.forEach(task => {
       task.answers.sort((a, b) => a.answerOptionLetter.localeCompare(b.answerOptionLetter));
-    })
+    });
     console.log("Generated tasks after request in algZahlefolgenService." +
       "\nBe careful, solutions included in object: ", result);
     return result;
   }
 
-  private addNewTask(): algZfType {
-    let systemId: number = Math.floor(Math.random()*23);
-    this.refreshNonAnswerIsCorrectChance();
+  private addNewTask(useSpecificSystemId?: number): algZfType {
+    let systemId: number = useSpecificSystemId ?? Math.floor(Math.random()*23);
     return this._taskGeneration[systemId]();
   }
 
   /**
+   * #### System 1 ## System 1 ## System 1 # System 1 ####
    * System 1 - a+b=c b+c=d c+d=e ...
    *  For System 1 - 2 number are needed and the given numbers plus the answer numbers must be validated.
    *
    * @private
    */
   private generateUsingSystem0(): algZfType {
-    //init result
-    let result :algZfType = {
-      id: -1,
-      answers: new Array<algZfAnswerType>(),
-      givenNumbers: new Array<number>(),
+    //init result (id of result will be determined outside). #### System 1 ## System 1 ## System 1 # System 1 ####
+    let result :algZfType = {id: -1,  answers: new Array<algZfAnswerType>(),givenNumbers: new Array<number>(),
       usedSystem: 1};
 
     //define a and b
-    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1)); //a
-    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1)); //b
-    //Define the rest of the given numbers
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //a
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //b
+    //Define the rest of the given numbers  #### System 1 ## System 1 ## System 1 # System 1 ####
     let i = 0;
     while (result.givenNumbers.length < this.amountGivenNumbers){
       result.givenNumbers.push(result.givenNumbers[i]+result.givenNumbers[i+1]);
       i++;
     }
-    //Define the correct answer numbers
-    const correctNumber1:number = result.givenNumbers[this.amountGivenNumbers - 2] + result.givenNumbers[this.amountGivenNumbers - 1];
-    const correctNumber2:number = result.givenNumbers[this.amountGivenNumbers-1]+correctNumber1;
+    //Define the correct answer numbers #### System 1 ## System 1 ## System 1 # System 1 ####
+    const correctNumber1:number =
+      result.givenNumbers[this.amountGivenNumbers - 2]
+      + result.givenNumbers[this.amountGivenNumbers - 1];
+    const correctNumber2:number =
+      result.givenNumbers[this.amountGivenNumbers-1]
+      + correctNumber1;
 
-    //Construct result answers set
-    //Add nonCorrectAnswer
-    result.answers.push(this.buildAnswer(this.nonAnswerIsCorrect,'E'));
-    if(!this.nonAnswerIsCorrect){
-      result.answers.push(this.buildAnswer(true,this.getRandomRemainingLetter(result.answers),
-        correctNumber1, correctNumber2));
-    }
-    //Fill the rest answer options by difficulty
-    let numberList = [...result.givenNumbers,correctNumber1,correctNumber2];
-    while (result.answers.length < this.amountGivenAnswersOptions){
-      let fakeA = this.getFakeAnswerValuesForCorrectValues(numberList,1,"+");
-      result.answers.push(this.buildAnswer(false,this.getRandomRemainingLetter(result.answers),
-        fakeA.eighthNumber,fakeA.ninthNumber));
-    }
+    //Construct result answers set  #### System 1 ## System 1 ## System 1 # System 1 ####
+    //Add nonCorrectAnswer and correct answer (or only AnswerE if E is correct)
+    result = this.constructionForAnswerE(result,correctNumber1,correctNumber2)
+    //Fill the rest answer options by difficulty  #### System 1 ## System 1 ## System 1 # System 1 ####
+    result = this.fillTheRestWithFakeAnswers(result,correctNumber1,correctNumber2,1,"+");
     return result;
+    // #### System 1 ## System 1 ## System 1 # System 1 #### END
   }
 
+  /**
+   * #### System 2 ## System 2 ## System 2 # System 2 ####
+   * System 2 - a+b+c=d b+c+d=e c+d+e=f ...
+   */
   private generateUsingSystem1(): algZfType {
-    return this._taskGeneration[1-1]();  //Not implmented yet
+    //init result (id of result will be determined outside).#### System 2 ## System 2 ## System 2 # System 2 ####
+    let result :algZfType = {id: -1,  answers: new Array<algZfAnswerType>(),givenNumbers: new Array<number>(),
+      usedSystem: 2};
+
+    //define a and b and c #### System 2 ## System 2 ## System 2 # System 2 ####
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //a
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //b
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //c
+    //Define the rest of the given numbers  #### System 2 ## System 2 ## System 2 # System 2 ####
+    let i = 0;
+    while (result.givenNumbers.length < this.amountGivenNumbers){
+      result.givenNumbers.push(result.givenNumbers[i]+result.givenNumbers[i+1]+result.givenNumbers[i+2]);
+      i++;
+    }
+    //Define the correct answer numbers #### System 2 ## System 2 ## System 2 # System 2 ####
+    const correctNumber1:number =
+      result.givenNumbers[this.amountGivenNumbers - 3]
+      + result.givenNumbers[this.amountGivenNumbers - 2]
+      + result.givenNumbers[this.amountGivenNumbers - 1];
+    const correctNumber2:number =
+      result.givenNumbers[this.amountGivenNumbers - 2]
+      + result.givenNumbers[this.amountGivenNumbers - 1]
+      + correctNumber1;
+
+    //Construct result answers set  #### System 2 ## System 2 ## System 2 # System 2 ####
+    //Add nonCorrectAnswer and correct answer (or only AnswerE if E is correct)
+    result = this.constructionForAnswerE(result, correctNumber1, correctNumber2);
+    //Fill the rest answer options by difficulty  #### System 2 ## System 2 ## System 2 # System 2 ####
+    result = this.fillTheRestWithFakeAnswers(result, correctNumber1, correctNumber2, 2, "+");
+    return result;
+    // #### System 2 ## System 2 ## System 2 # System 2 #### END
   }
 
+  /**
+   * #### System 3 ## System 3 ## System 3 # System 3 ####
+   * System 3 - a+b=c c-b=d d+c=e ...
+   */
   private generateUsingSystem2(): algZfType {
-    return this._taskGeneration[2-1]();  //Not implmented yet
+    //init result (id of result will be determined outside).#### System 3 ## System 3 ## System 3 # System 3 ####
+    let result :algZfType = {id: -1,  answers: new Array<algZfAnswerType>(),givenNumbers: new Array<number>(),
+      usedSystem: 3};
+
+    //define a and b #### System 3 ## System 3 ## System 3 # System 3 ####
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //a
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem1_2_3)); //b
+    //Define the rest of the given numbers  #### System 3 ## System 3 ## System 3 # System 3 ####
+    let i = 0;
+    while (result.givenNumbers.length < this.amountGivenNumbers){
+      if(i%2 === 0){
+        //Even a+b = c    |   c+d = e
+        result.givenNumbers.push(result.givenNumbers[i]+result.givenNumbers[i+1]);
+      }else {
+        //Odd c-b = d     | e-d = f
+        result.givenNumbers.push(result.givenNumbers[i+1]-result.givenNumbers[i]);
+      }
+      i++;
+    }
+    //Define the correct answer numbers #### System 3 ## System 3 ## System 3 # System 3 ####
+    const correctNumber1:number =
+      result.givenNumbers[this.amountGivenNumbers - 1]
+      - result.givenNumbers[this.amountGivenNumbers - 2];
+    const correctNumber2:number =
+      result.givenNumbers[this.amountGivenNumbers - 1]
+      + correctNumber1;
+
+    //Construct result answers set  #### System 3 ## System 3 ## System 3 # System 3 ####
+    //Add nonCorrectAnswer and correct answer (or only AnswerE if E is correct)
+    result = this.constructionForAnswerE(result, correctNumber1, correctNumber2);
+    //Fill the rest answer options by difficulty  #### System 3 ## System 3 ## System 3 # System 3 ####
+    result = this.fillTheRestWithFakeAnswers(result, correctNumber1, correctNumber2, 2, "+-");
+    return result;
+    // #### System 3 ## System 3 ## System 3 # System 3 #### END
   }
 
+  /**
+   * #### System 4 ## System 4 ## System 4 # System 4 ####
+   * System 4 - a+c=d b+d=e c+e=f ...
+   */
   private generateUsingSystem3(): algZfType {
-    return this._taskGeneration[3-1]();  //Not implmented yet
+    //init result (id of result will be determined outside).#### System 4 ## System 4 ## System 4 # System 4 ####
+    let result :algZfType = {id: -1,  answers: new Array<algZfAnswerType>(),givenNumbers: new Array<number>(),
+      usedSystem: 4};
+
+    //define a, b and c #### System 4 ## System 4 ## System 4 # System 4 ####
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem4)); //a
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem4)); //b
+    result.givenNumbers.push(this.getRandomNumberForTask(this.highestNumberOverwriteSystem4)); //c
+    //Define the rest of the given numbers  #### System 4 ## System 4 ## System 4 # System 4 ####
+    let i = 0;
+    while (result.givenNumbers.length < this.amountGivenNumbers){
+        //Even a+c = d
+        result.givenNumbers.push(result.givenNumbers[i]+result.givenNumbers[i+2]);
+      i++;
+    }
+    //Define the correct answer numbers #### System 4 ## System 4 ## System 4 # System 4 ####
+    const correctNumber1:number =
+      result.givenNumbers[this.amountGivenNumbers - 1] //g
+      + result.givenNumbers[this.amountGivenNumbers - 3]; //e
+    const correctNumber2:number =
+      correctNumber1 //h
+      + result.givenNumbers[this.amountGivenNumbers - 2]; //f
+
+    //Construct result answers set  #### System 4 ## System 4 ## System 4 # System 4 ####
+    //Add nonCorrectAnswer and correct answer (or only AnswerE if E is correct)
+    result = this.constructionForAnswerE(result, correctNumber1, correctNumber2);
+    //Fill the rest answer options by difficulty  #### System 4 ## System 4 ## System 4 # System 4 ####
+    result = this.fillTheRestWithFakeAnswers(result, correctNumber1, correctNumber2, 2, "+");
+    return result;
+    // #### System 4 ## System 4 ## System 4 # System 4 #### END
   }
 
   private generateUsingSystem4(): algZfType {
@@ -215,13 +320,52 @@ export class AlgZahlenfolgenService {
   }
 
   /**
+   * This method refreshes the probability for Answer E being correct.
+   * Afterward it will either push E as correct answer and finish OR
+   * it will push E as incorrect and push the correct numbers with a random letter.
+   *
+   * @param result
+   * @param correctNumber1
+   * @param correctNumber2
+   * @private
+   */
+  private constructionForAnswerE(result: algZfType, correctNumber1: number, correctNumber2: number) {
+    this.refreshNonAnswerIsCorrectChance();
+    result.answers.push(this.buildAnswer(this.nonAnswerIsCorrect, 'E', false));
+    if (!this.nonAnswerIsCorrect) {
+      result.answers.push(this.buildAnswer(true, this.getRandomRemainingLetter(result.answers), true,
+        correctNumber1, correctNumber2));
+    }
+    return result;
+  }
+
+  /**
+   * This method is the preperation step for the method: getFakeAnswerValuesForCorrectValues
+   * @param result
+   * @param correctNumber1
+   * @param correctNumber2
+   * @param stepsInBetween From first to result - how many steps in between? (Example: a+b+c=d -> b & c are in between, so 2)
+   * @param operations look at getFakeAnswerValuesForCorrectValues
+   * @private
+   */
+  private fillTheRestWithFakeAnswers(result: algZfType, correctNumber1: number, correctNumber2: number, stepsInBetween: number, operations: string) {
+    let numberList = [...result.givenNumbers, correctNumber1, correctNumber2];
+    while (result.answers.length < this.amountGivenAnswersOptions) {
+      let fakeA = this.getFakeAnswerValuesForCorrectValues(numberList, stepsInBetween, operations);
+      result.answers.push(this.buildAnswer(false, this.getRandomRemainingLetter(result.answers), true,
+        fakeA.eighthNumber, fakeA.ninthNumber));
+    }
+    return result;
+  }
+
+  /**
    * This method returns wrong answerOptions.
    * For EASY Difficulty, The answers options are random within a margin.
    * For DEFAULT The answers are generated by random operations of the given Values.
    * For HARD the answers are generated by Operation of the system but slightly wrong.
    * Operations can include the following strings: +-/*
    * @param fullNumberList
-   * @param stepsInBetween
+   * @param stepsInBetween From first to result - how many steps in between? (Example: a+b+c=d -> b & c are in between, so 2)
    * @param operations
    * @private
    */
@@ -337,12 +481,20 @@ export class AlgZahlenfolgenService {
     this._highestNumber = Math.abs(value);
   }
 
-  get highestNumberOverwriteSystem1(): number {
-    return this._highestNumberOverwriteSystem1;
+  get highestNumberOverwriteSystem1_2_3(): number {
+    return this._highestNumberOverwriteSystem1_2_3;
   }
 
-  set highestNumberOverwriteSystem1(value: number) {
-    this._highestNumberOverwriteSystem1 = Math.abs(value);
+  set highestNumberOverwriteSystem1_2_3(value: number) {
+    this._highestNumberOverwriteSystem1_2_3 = Math.abs(value);
+  }
+
+  get highestNumberOverwriteSystem4(): number {
+    return this._highestNumberOverwriteSystem4;
+  }
+
+  set highestNumberOverwriteSystem4(value: number) {
+    this._highestNumberOverwriteSystem4 = Math.abs(value);
   }
 
   get amountGivenNumbers(): number {
@@ -394,11 +546,11 @@ export class AlgZahlenfolgenService {
    * @param ninthNumber
    * @private
    */
-  private buildAnswer(correct: boolean, answerOptionLetter:string, eightNumber?:number, ninthNumber?: number): algZfAnswerType{
+  private buildAnswer(correct: boolean, answerOptionLetter:string, answerAreNumbers: boolean, eightNumber?:number, ninthNumber?: number): algZfAnswerType{
     return {
-      answers: eightNumber && ninthNumber?{
-        eighthNumber: eightNumber,
-        ninthNumber: ninthNumber
+      answers: answerAreNumbers ? {
+        eighthNumber: eightNumber??-1,
+        ninthNumber: ninthNumber??-1
       } : this.nonAnswerString ,
       correct: correct,
       answerOptionLetter: answerOptionLetter
