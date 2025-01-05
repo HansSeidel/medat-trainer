@@ -49,11 +49,25 @@ the settings page with generic setting components,
 the information page with all additional information a user might be interested in.
 
 ### Temporary Todos:
-- Add known bugs with ZF SYS 1 Difficulty Ease -> Fakes only return 0;
+- Systems auslagern -> like what the fuck.
+- Check if bugs with ZF SYS 1 Difficulty Ease -> Fakes only return 0; exists
 - Improvement for the Fake Answers could be to add a min value for the random number generation.
-- Implement Component with first System
-- Bug -> im Moment wird nur System 3 generiert.
+- Bug -> im Moment wird nur System 3 generiert. -> Check if fixed.
   - Ist wahrscheinlich kein Bug (Die Fallback logic gibt System 3 die größte Wahscheinlichkeit, da 4-23 nicht implementiert sind.)
+- Add timer to first component.
+  - Implement timer settings (Show Overtime / Hider Timer / Show always)
+  - Implement Block setting (Disable when time is over)
+- Validate results and create Resultpage.
+- Create solution and explanation component (Only component)
+- Got throw all Tasks and resolve the below checklist:
+  - Generate task specific overwrites (If not done)
+  - Test on UI if the task is created correctly and fix logic mistakes.
+  - Write Fill with comments if necessary
+  - Check Operators for fake answers
+  - Write Unit-Test
+    - Add to unit-test check for <= 0 values. (Not allowed)
+    - Fix tests.
+  - Write new Solution and explanation.
 
 ### Next Release Todos:
 - Implementing first KFF (1.1.0)

@@ -19,6 +19,10 @@ describe('AlgZahlenfolgenService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should test nothing', () => {
+    let task = service.getTasks(1,5);
+  });
+
   it('should test system 1', () => {
     let tasks = service.getTasks(1000,1);
     //assert length parameter works
@@ -129,6 +133,35 @@ describe('AlgZahlenfolgenService', () => {
 
       //Assert answer Array (Always the same)
       assertAnswers(task, correctNumber1, correctNumber2);
+    }
+  });
+
+  it('should test system 5', () => {
+    const systemToTest= 5;
+    let tasks = service.getTasks(1000,systemToTest);
+    //assert length parameter works
+    expect(tasks.length).toBe(1000);
+    for(let task of tasks) {
+      //assert systemId
+      expect(task.usedSystem).toBe(systemToTest);
+      //assert givenNumbers
+      /*
+      //TODO Think about a good way to test this system
+      for(let i = 3; i < amountGivenNumbers; i++) {
+        expect(task.givenNumbers[i]).toBe(
+          +task.givenNumbers[i-3]
+          +task.givenNumbers[i-1]);
+      }
+      //Calculate correct Numbers: (Copy Paste from Alg)
+      const correctNumber1:number =
+        task.givenNumbers[amountGivenNumbers - 1] //g
+        + task.givenNumbers[amountGivenNumbers - 3]; //e
+      const correctNumber2:number =
+        correctNumber1 //h
+        + task.givenNumbers[amountGivenNumbers - 2]; //f
+       */
+      //Assert answer Array (Always the same)
+      //assertAnswers(task, correctNumber1, correctNumber2);
     }
   });
 
